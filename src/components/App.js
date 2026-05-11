@@ -1,7 +1,6 @@
 
 import './App.css';
 import { useEffect, useRef, useState } from 'react';
-import Tooltip from './Tooltip';
 import AddInfo from './AddInfo';
 
 function App() {
