@@ -1,13 +1,59 @@
 
-import React from "react";
-import './../styles/App.css';
+import './App.css';
+import { useEffect, useRef, useState } from 'react';
+import Tooltip from './Tooltip';
+import AddInfo from './AddInfo';
 
-const App = () => {
+function App() {
+  const [info,setInfos]=useState([{
+      id: Date.now(),
+      name: '',
+      age: ''
+    }])
+  const addInfo=()=>{
+    setInfos([...info,    {
+      id: Date.now(),
+      name: '',
+      age: ''
+    }])
+  }
+  const removeId=(id)=>{
+    setInfos(info.filter(item=>item.id!==id))
+  }
+  const handleSubmit=()=>{
+    console.log(info)
+  }
+
+  const handleChange = (id, field, value) => {
+
+    setInfos(
+      info.map(item => {
+
+        if (item.id === id) {
+          return {
+            ...item,
+            [field]: value
+          };
+        }
+
+        return item;
+      })
+    );
+  };
+
   return (
     <div>
-        {/* Do not remove the main div */}
+      {
+        info.map((item)=>{
+          return(
+            <AddInfo key={item.id} removeId={removeId} item={item} handleOnChange={handleChange} />
+          )
+        })
+      }
+      <button onClick={addInfo} >add Info</button>
+      <button onClick={handleSubmit}>submit</button>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
